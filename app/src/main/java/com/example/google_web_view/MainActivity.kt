@@ -1,10 +1,15 @@
 package com.example.google_web_view
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.os.Message
 import android.view.View
+import android.webkit.CookieManager
+import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
+import android.webkit.WebView.WebViewTransport
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,14 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    class GeoWebViewClient : WebViewClient() {
-        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-            // When user clicks a hyperlink, load in the existing WebView
-            view.loadUrl(url)
-            return true
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         doubleClick = false
@@ -46,6 +43,29 @@ class MainActivity : AppCompatActivity() {
         doubleClick = false
     }
 
+    class GeoWebChromeClient : WebChromeClient() {
+        @SuppressLint("SetJavaScriptEnabled")
+        override fun onCreateWindow(
+            view: WebView?, isDialog: Boolean,
+            isUserGesture: Boolean, resultMsg: Message
+        ): Boolean {
+            //            view.addView(bitWebView);
+
+            val transport = resultMsg.obj as WebViewTransport
+            transport.webView = view
+            resultMsg.sendToTarget()
+
+            /*bitWebView.setWebViewClient(new WebViewClient() {
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                    view.loadUrl(url);
+                    return true;
+                }
+            });*/
+            return true
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -53,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         mySwipeRefreshLayout = binding.swipeContainer
 
-        val url = "http://nbit.omidpayment.ir/"
+        val url = "https://github.com/"
 
         webView = binding.webView
 
@@ -69,7 +89,18 @@ class MainActivity : AppCompatActivity() {
 
         webView.getSettings().setDomStorageEnabled(true)
 
-        webView.setWebViewClient(GeoWebViewClient())
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                return false
+            }
+
+            override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
+                super.onReceivedError(view, errorCode, description, failingUrl)
+                // نمایش پیام خطا
+                Toast.makeText(this@MainActivity, "Error: $description", Toast.LENGTH_SHORT).show()
+            }
+
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             webView.getSettings().setForceDark(WebSettings.FORCE_DARK_OFF)
@@ -81,7 +112,29 @@ class MainActivity : AppCompatActivity() {
             mySwipeRefreshLayout!!.isRefreshing = false
         }
 
-        webView.loadUrl(url)
+        webView.clearCache(true)
+
+        // Configure WebView settings
+        webView.settings.apply {
+            loadsImagesAutomatically = true
+            javaScriptCanOpenWindowsAutomatically = true
+            javaScriptEnabled = true
+            setSupportMultipleWindows(false)
+            domStorageEnabled = true
+            cacheMode = WebSettings.LOAD_NO_CACHE
+            userAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+        }
+
+        CookieManager.getInstance().setAcceptCookie(true)
+        CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
+
+        webView.clearHistory()
+        webView.clearCache(true)
+        webView.clearFormData()
+
+        webView.webChromeClient = GeoWebChromeClient()
+
+        webView.loadUrl("file:///android_asset/index.html")
 
         try {
             Thread.sleep(500)

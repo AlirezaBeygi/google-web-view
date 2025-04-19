@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>صفحه خبری</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            background-color: #444;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: right;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .main-content {
+            display: flex;
+            margin: 20px;
+            justify-content: space-between;
+        }
+
+        .main-content .news {
+            width: 70%;
+        }
+
+        .main-content .sidebar {
+            width: 28%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-article {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-article h2 {
+            margin-top: 0;
+        }
+
+        .news-article p {
+            line-height: 1.6;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .sidebar h3 {
+            text-align: center;
+        }
+
+        .related-news ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .related-news li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .related-news li a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .related-news li a:hover {
+            color: #007BFF;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+    }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>وبسایت خبری</h1>
+    <p>آخرین اخبار و رویدادهای مهم دنیا</p>
+</header>
+
+<nav>
+    <a href="#">خانه</a>
+    <a href="#">ورزشی</a>
+    <a href="#">سیاسی</a>
+    <a href="#">فرهنگی</a>
+    <a href="#">اقتصادی</a>
+</nav>
+
+<div class="main-content">
+    <!-- اخبار اصلی -->
+    <div class="news">
+        <div class="news-article">
+            <h2>عنوان خبر شماره 1</h2>
+            <p><strong>تاریخ:</strong> 19 فروردین 1404</p>
+            <p>در این مقاله می‌خواهیم در مورد یک موضوع مهم خبری صحبت کنیم. این موضوع به شدت بر زندگی
+                مردم تأثیر گذاشته و نیاز به بررسی بیشتر دارد. در ادامه، جزئیات بیشتر این موضوع را
+                مرور خواهیم کرد...</p>
+        </div>
+
+        <div class="news-article">
+            <h2>عنوان خبر شماره 2</h2>
+            <p><strong>تاریخ:</strong> 19 فروردین 1404</p>
+            <p>خبر دوم به یکی از مهم‌ترین مسائل روز پرداخته و بر تصمیم‌گیری‌های کلیدی تأثیر گذاشته
+                است. این خبر در پی تحولات جدید در سیاست داخلی کشور منتشر شده و تحلیل‌های مختلفی را
+                ارائه می‌دهد...</p>
+        </div>
+
+        <div class="news-article">
+            <h2>عنوان خبر شماره 3</h2>
+            <p><strong>تاریخ:</strong> 19 فروردین 1404</p>
+            <p>در این مقاله، به موضوعی می‌پردازیم که در این روزها توجه بسیاری از مردم را به خود جلب
+                کرده است. این موضوع از اهمیت بالایی برخوردار است و باید در بررسی‌های بعدی جزئیات
+                بیشتری از آن ارائه شود...</p>
+        </div>
+    </div>
+
+    <!-- نوار کناری اخبار مرتبط -->
+    <div class="sidebar">
+        <div class="related-news">
+            <h3>اخبار مرتبط</h3>
+            <ul>
+                <li><a href="#">خبر 1: تحلیل سیاسی هفته</a></li>
+                <li><a href="#">خبر 2: تحولات اقتصادی و تاثیر آن</a></li>
+                <li><a href="#">خبر 3: ورزش و اتفاقات مهم این هفته</a></li>
+                <li><a href="#">خبر 4: نتایج انتخابات و تحلیل‌ها</a></li>
+                <li><a href="#">خبر 5: راهکارهای کاهش تورم در سال جدید</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 وبسایت خبری - تمامی حقوق محفوظ است</p>
+</footer>
+
+</body>
+</html>
